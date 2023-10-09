@@ -1,0 +1,31 @@
+
+using UnityEngine;
+
+public class GameManager : MonoBehaviour
+{
+    public bool gameOver = false;
+    public bool gameWin = false;
+    public GameObject gameWinUI;
+    public GameObject gameOverUI;
+
+void Start()
+{
+
+}
+
+
+public void EndGame()
+{
+    Debug.Log("GAME OVER");
+    gameOver = true;
+    gameOverUI.SetActive(true);
+}
+
+public void WinGame()
+{
+    Debug.Log("GAME WIN");
+    gameWin = true;
+    gameWinUI.SetActive(true);
+}
+
+}
