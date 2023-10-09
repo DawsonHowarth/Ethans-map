@@ -1,0 +1,51 @@
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class PlayerController : MonoBehaviour
+{
+    public float horizontalInput;
+    public float speed = 30.0f;
+    public GameObject projectilePrefab;
+    public AudioClip shootSound;
+    private AudioSource playerAudio;
+    public GameManager gameManagerScript;
+    // Start is called before the first frame update
+    void Start()
+    {
+        playerAudio = GetComponent<AudioSource>();
+        gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (gameManagerScript.gameWin == false)
+        {
+        if (gameManagerScript.gameOver == false)
+        {
+        if(transform.position.x < -13)
+        {
+            transform.position = new Vector3(-13, transform.position.y, transform.position.z);
+        }
+         if(transform.position.x > 0)
+        {
+            transform.position = new Vector3(0, transform.position.y, transform.position.z);
+        }
+        horizontalInput = Input.GetAxis("Horizontal");
+        transform.Translate(Vector3.right * horizontalInput * Time.deltaTime * speed);
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+        Instantiate(projectilePrefab, transform.position, projectilePrefab.transform.rotation);
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            playerAudio.PlayOneShot(shootSound, 1.0f);
+        }
+        }
+        }
+    }
+
+
+}
