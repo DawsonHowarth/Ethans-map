@@ -1,0 +1,39 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SpawnManager : MonoBehaviour
+{
+    public GameObject[] policePrefabs;
+    private float spawnPosZ = 20;
+    private float startDelay = 2;
+    private float spawnInterval = 1.5f;
+    public GameManager gameManagerScript;
+    // Start is called before the first frame update
+    void Start()
+    {
+        InvokeRepeating("SpawnRandomAnimal", startDelay, spawnInterval);
+        gameManagerScript = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+    void SpawnRandomAnimal() 
+    {
+        if (gameManagerScript.gameWin == false)
+        {
+            if (gameManagerScript.gameOver == false)
+            {
+            int policeIndex = Random.Range(0, policePrefabs.Length);
+Vector3 spawnpos = new Vector3(Random.Range(-13, 0), 0, spawnPosZ);
+            Instantiate(policePrefabs[policeIndex], new Vector3(Random.Range(-13, 0) , 0 ,spawnPosZ),
+             policePrefabs[policeIndex].transform.rotation);
+            }
+        }
+    
+
+    }
+}
